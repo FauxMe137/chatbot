@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <link rel="icon" href="assets/chatbot-icon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=attach_file,send,add"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <main class="chat-container">
+        <header class="chat-header">
+            <img>
+            <div>
+                <h1>Chatbot</h1>
+                <p>Ask me anything</p>
+            </div>
+
+            <button id="new-chat-btn" type="button">
+                <span class="material-symbols-outlined">add</span>
+                <span>New Chat</span>
+            </button>
+        </header>
+
+        <section id="chat-messages" class="chat-messages" aria-live="polite" aria-label="Chat messages">
+            <div class="message bot-message">
+                <p>Hello! How can I help you?</p>
+            </div>
+        </section>
+
+        <section class="chat-input-area">
+            <div id="file-preview" class="file-preview"></div>
+
+            <form id="chat-form">
+                <div class="input">
+                    <input type="file" id="file-input" accept=".png,.jpg,.jpeg,.pdf" multiple hidden>
+                    <button type="button" id="attach-btn" aria-label="Attach files" title="Attach files">
+                        <span class="material-symbols-outlined">attach_file</span>
+                    </button>
+
+                    <textarea id="message-input" name="message" placeholder="Type a message..." rows="1" maxlength="4000" aria-label="Message"></textarea>
+                    <button type="submit" id="send-btn" aria-label="Send message" title="Send message">
+                        <span class="material-symbols-outlined">send</span>
+                    </button>
+                </div>
+            </form>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

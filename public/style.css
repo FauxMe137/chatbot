@@ -1,0 +1,61 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: hsl(230, 20%, 25%);
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+}
+.chat-container{
+    border: 1px solid hsl(230, 25%, 10%);
+    border-radius: 5px;
+}
+.chat-header{
+    border-radius: 5px;
+    background-color: hsl(230, 20%, 15%);
+    display: flex;
+    justify-content: space-between;
+    height: 100px;
+}
+#new-chat-btn{
+    border-radius: 5px;
+    border: none;
+    background-color: purple;
+    color: white;
+    padding: 10px;
+}
+.chat-messages{
+
+}
+.message{
+
+}
+.bot-message{
+
+}
+.user-message{
+
+}
+.chat-input-area{
+
+}
+.file-preview{
+
+}
+.input{
+
+}
+#attach-btn{
+    height: 50px;
+    width: 50px;
+    border-radius: 10px;
+    background-color: hsl(215, 90%, 70%);
+}
+#message-input{
+
+}
+#send-btn{
+
+}
