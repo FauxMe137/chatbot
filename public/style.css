@@ -16,15 +16,29 @@ body{
     border-radius: 5px;
     background-color: hsl(230, 20%, 15%);
     display: flex;
-    justify-content: space-between;
-    height: 100px;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    gap: 50px;
+    color: hsl(0, 0%, 90%);
+}
+img{
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
 }
 #new-chat-btn{
     border-radius: 5px;
     border: none;
-    background-color: purple;
+    background-color: hsl(280, 100%, 50%);
     color: white;
     padding: 10px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
 }
 .chat-messages{
 
@@ -48,10 +62,11 @@ body{
 
 }
 #attach-btn{
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     border-radius: 10px;
     background-color: hsl(215, 90%, 70%);
+    border: 1px solid hsl(230, 20%, 25%);
 }
 #message-input{
 
