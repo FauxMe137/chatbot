@@ -9,12 +9,14 @@ body{
     font-weight: 500;
 }
 .chat-container{
-    border: 1px solid hsl(230, 25%, 10%);
+    border: 1px solid hsl(230, 20%, 40%);
     border-radius: 5px;
+    margin: 20px;
+    box-shadow: 5px 5px 20px 0 hsl(230, 25%, 15%, 0.7), -5px -5px 7px 0 hsl(230, 25%, 15%, 0.7);
 }
 .chat-header{
     border-radius: 5px;
-    background-color: hsl(230, 20%, 15%);
+    background-color: hsl(230, 20%, 35%);
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -41,36 +43,94 @@ img{
     margin-left: auto;
 }
 .chat-messages{
-
+    height: 350px;
+    background-color: hsl(230, 25%, 15%);
+    overflow-y: visible;
+    padding: 10px;
 }
 .message{
-
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    color: hsl(0, 0%, 100%);
+    margin: 10px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    width: fit-content;
+    max-width: 700px;
+    min-width: 200px;
+}
+.chat-image{
+    height: 30px;
+    width: 30px;
 }
 .bot-message{
-
+    border: 1px solid hsl(230, 20%, 45%);
+    background-color: hsl(230, 20%, 45%);
 }
 .user-message{
-
+    border: 1px solid hsl(280, 100%, 50%);
+    background-color: hsl(280, 100%, 50%);
 }
 .chat-input-area{
-
+    background-color: hsl(230, 20%, 30%);
+    border-top: 1px solid hsl(230, 20%, 40%);
+    border-radius: 5px;
+    padding: 20px;
 }
 .file-preview{
-
+    height: fit-content;
+    min-height: 20px;
+    max-height: 200px;
 }
 .input{
-
+    border: 1px solid hsl(230, 20%, 40%);
+    background-color: hsl(230, 20%, 35%);
+    border-radius: 10px;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 0 0 60px;
+    position: relative;
 }
 #attach-btn{
     height: 40px;
     width: 40px;
     border-radius: 10px;
-    background-color: hsl(215, 90%, 70%);
-    border: 1px solid hsl(230, 20%, 25%);
+    background-color: hsl(230, 20%, 45%);
+    border: 1px solid hsl(230, 20%, 45%);
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
 }
 #message-input{
-
+    min-height: 60px;
+    max-height: 150px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 10px 55px 10px 15px;
+    resize: none;
+    overflow-y: auto;
+    field-sizing: content;
+    border-right: 1px solid hsl(230, 20%, 40%);
+    border-left: 1px solid hsl(230, 20%, 40%);
+    background-color: hsl(230, 20%, 45%);
+    color: hsl(230, 25%, 15%);
 }
 #send-btn{
-
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    background-color: hsl(280, 100%, 50%);
+    border: 1px solid hsl(280, 100%, 50%);
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+.material-symbols-outlined{
+    color: white;
+    font-variation-settings: 'FILL' 1;
 }
