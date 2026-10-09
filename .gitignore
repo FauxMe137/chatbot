@@ -147,3 +147,14 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# SQLite Database & Write-Ahead Logs
+database/*.db
+database/*.db-wal
+database/*.db-shm
+database/*.sqlite
+database/*.sqlite3
+
+# Uploaded chat attachments (keep the folder via .gitkeep, ignore actual files)
+uploads/*
+!uploads/.gitkeep
