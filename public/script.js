@@ -1,3 +1,31 @@
+document.addEventListener("DOMContentLoaded", async () => {
+    const savedConversationId = localStorage.getItem("currentConversationId");
+    
+    if (savedConversationId) {
+        currentConversationId = Number(savedConversationId);
+        
+        try {
+            const response = await fetch(`/api/history/${currentConversationId}`);
+            if (response.ok) {
+                const history = await response.json();
+                
+                if (history.length > 0) {
+                    // Clear out any default greeting
+                    chatMessages.innerHTML = "";
+                    
+                    // Render all past messages into the chat window
+                    history.forEach(msg => {
+                        displayMessage(msg.content, msg.role);
+                    });
+                }
+            }
+        } catch (err) {
+            console.error("Could not restore chat history:", err);
+            localStorage.removeItem("currentConversationId");
+        }
+    }
+});
+
 // ==========================================
 // DOM ELEMENTS
 // ==========================================
@@ -11,6 +39,17 @@ const fileInput = document.querySelector("#file-input");
 const filePreview = document.querySelector("#file-preview");
 const newChatBtn = document.querySelector("#new-chat-btn");
 
+
+// Configure Marked to highlight code blocks automatically
+marked.setOptions({
+    highlight: function(code, lang) {
+        if (lang && hljs.getLanguage(lang)) {
+            return hljs.highlight(code, { language: lang }).value;
+        }
+        return hljs.highlightAuto(code).value;
+    },
+    breaks: true // Enables line breaks on single newlines
+});
 
 // ==========================================
 // CHAT STATE
@@ -46,8 +85,14 @@ function displayMessage(text, sender, attachments = []) {
         : "/assets/chatbot-icon.png";
     avatar.alt = `${sender} image`;
 
-    const textElement = document.createElement("p");
-    textElement.textContent = text;
+    // Dynamically choose "div" for the bot, and "p" for the user
+    const textElement = document.createElement(sender === "bot" ? "div" : "p");
+
+    if (sender === "bot") {
+        textElement.innerHTML = marked.parse(text); // Renders Markdown safely inside a div
+    } else {
+        textElement.textContent = text; // Renders plain text inside a standard paragraph
+    }
 
     messageContainer.appendChild(avatar);
     messageContainer.appendChild(textElement);
@@ -181,6 +226,7 @@ async function sendMessage(messageText, files = []) {
 
         if (data.conversationId) {
             currentConversationId = data.conversationId;
+            localStorage.setItem("currentConversationId", currentConversationId);
         }
 
         // Clean up the indicator before printing the real reply
@@ -348,21 +394,97 @@ async function copyTextToClipboard(text, buttonElement) {
 // START NEW CONVERSATIONS / CHATS
 // ==========================================
 
-function startNewChat() {
-    // 1. Reset state
-    currentConversationId = null;
-    selectedFiles = [];
-    filePreview.innerHTML = "";
-    messageInput.value = "";
-    resetInputHeight();
+if (newChatBtn) {
+    newChatBtn.addEventListener("click", () => {
+        // 1. Reset the active conversation session
+        currentConversationId = null;
+        
+        // 2. Clear localStorage (prepping for the next checklist item)
+        localStorage.removeItem("currentConversationId");
 
-    // 2. Clear messages container and restore default greeting
-    chatMessages.innerHTML = `
-        <div class="message bot-message">
-            <img src="/assets/chatbot-icon.png" alt="bot image" class="chat-image">
-            <p>Hello! How can I help you?</p>
-        </div>
-    `;
+        // 3. Clear the chat window UI
+        chatMessagesContainer.innerHTML = "";
+
+        // 4. Reset input or attachments if needed
+        messageInput.value = "";
+        
+        // 5. Re-display the default welcome bot greeting
+        displayMessage("Hello! How can I help you today?", "bot");
+    });
 }
 
-newChatBtn.addEventListener("click", startNewChat);
+// Sidebar Toggle Logic (Adapted from template)
+function showSidebar(){
+    const sidebar = document.querySelector(".sidebar");
+    sidebar.style.display = "flex";
+    loadSidebarConversations(7); // Load top 7 by default when opened
+}
+
+function hideSidebar(){
+    const sidebar = document.querySelector(".sidebar");
+    sidebar.style.display = "none";
+}
+
+// Fetch and Render Conversations in Sidebar
+async function loadSidebarConversations(limit = 7) {
+    const container = document.getElementById("sidebar-conversations-container");
+    try {
+        const response = await fetch(`/api/conversations?limit=${limit}`);
+        if (!response.ok) throw new Error("Failed to fetch conversations");
+        
+        const conversations = await response.json();
+        container.innerHTML = "";
+
+        if (conversations.length === 0) {
+            container.innerHTML = `<p style="color: gray; padding: 15px; font-size: 0.85rem;">No past chats yet.</p>`;
+            return;
+        }
+
+        conversations.forEach(conv => {
+            const btn = document.createElement("button");
+            btn.className = "conversation-item";
+            if (conv.id === currentConversationId) {
+                btn.classList.add("active");
+            }
+            // Display conversation ID or snippet title
+            btn.textContent = `Chat Session #${conv.id}`;
+            
+            // Switch session on click
+            btn.addEventListener("click", () => {
+                switchConversation(conv.id);
+                hideSidebar();
+            });
+
+            container.appendChild(btn);
+        });
+    } catch (err) {
+        console.error("Sidebar load error:", err);
+    }
+}
+
+// "View All History" button handler
+document.getElementById("load-more-chats-btn").addEventListener("click", () => {
+    loadSidebarConversations(100); // Load up to a higher cap (full-ish history)
+});
+
+// Switch active session and restore its history onto the UI
+async function switchConversation(convId) {
+    currentConversationId = convId;
+    localStorage.setItem("currentConversationId", currentConversationId);
+
+    try {
+        const response = await fetch(`/api/history/${convId}`);
+        if (response.ok) {
+            const history = await response.json();
+            chatMessagesContainer.innerHTML = ""; // Clear current view
+            
+            if (history.length > 0) {
+                history.forEach(msg => {
+                    displayMessage(msg.content, msg.role);
+                });
+            }
+        }
+    } catch (err) {
+        console.error("Error switching conversation:", err);
+    }
+}

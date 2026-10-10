@@ -6,10 +6,16 @@
     <title>Chatbot</title>
     <link rel="icon" href="/assets/chatbot-icon.png?v=2" type="image/png">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24..48,400,0..1,0&icon_names=attach_file,send,add,description,content_copy"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24..48,400,0..1,0&icon_names=attach_file,send,add,description,content_copy,check,drag_handle,close"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <!-- Markdown Parser -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Code Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 </head>
 
 <body>
@@ -26,6 +32,30 @@
                 <span>New Chat</span>
             </button>
         </header>
+
+        <nav>
+            <ul class="sidebar">
+                <li onclick=hideSidebar()>
+                    <a href="#"><span class="material-symbols-outlined close-symbol">close</span></a>
+                </li>
+                <li class="sidebar-header"><h3>Recent Chats</h3></li>
+        
+                <!-- Dynamic conversation list items get injected here -->
+                <div id="sidebar-conversations-container" style="width: 100%; display: flex; flex-direction: column; gap: 0;"></div>
+
+                <!-- Toggle for full history -->
+                <li style="margin-top: auto; padding: 10px;">
+                    <button id="load-more-chats-btn">View All History</button>
+                </li>
+            </ul>
+    
+            <ul>
+                <li><a href="#"><h1>Axiome Chatbot</h1></a></li>
+                <li class="menu" onclick=showSidebar()>
+                    <a href="#"><span class="material-symbols-outlined">drag_handle</span></a>
+                </li>
+            </ul>
+        </nav>
 
         <section id="chat-messages" class="chat-messages" aria-live="polite" aria-label="Chat messages">
             <div class="message bot-message">
