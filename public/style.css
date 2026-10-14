@@ -43,6 +43,12 @@ img{
     margin-left: auto;
     font-weight: 700;
 }
+#new-chat-btn:hover{
+    background-color: hsl(280, 100%, 55%);
+}
+#new-chat-btn:active{
+    background-color: hsl(280, 100%, 60%);
+}
 .chat-messages{
     height: 350px;
     background-color: hsl(230, 25%, 15%);

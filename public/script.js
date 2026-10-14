@@ -403,7 +403,7 @@ if (newChatBtn) {
         localStorage.removeItem("currentConversationId");
 
         // 3. Clear the chat window UI
-        chatMessagesContainer.innerHTML = "";
+        chatMessages.innerHTML = "";
 
         // 4. Reset input or attachments if needed
         messageInput.value = "";

@@ -103,7 +103,7 @@ async function callGeminiREST(contents, retries = 2) {
     }
 
     // Define model candidates (Primary -> Fallback)
-    const models = ["gemini-3.8-flash", "gemini-2.0-flash"];
+    const models = ["gemini-3.5-flash", "gemini-2.5-flash"];
 
     const payload = { contents };
 
@@ -155,8 +155,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve frontend files
-app.use(express.static(path.join(__dirname, "public")));
-app.use("/assets", express.static(path.join(__dirname, "assets")));
+app.use(express.static(path.join(__dirname, "public"), {
+    maxAge: process.env.NODE_ENV === 'production' ? '1d' : '0'
+}));
+app.use("/assets", express.static(path.join(__dirname, "assets"), {
+    maxAge: process.env.NODE_ENV === 'production' ? '7d' : '0'
+}));
 // Serve uploaded attachments
 app.use("/uploads", express.static(uploadsDir));
 

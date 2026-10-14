@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
+    "build:js": "esbuild public/script.js --minify --outfile=public/script.min.js",
+    "build:css": "esbuild public/style.css --minify --outfile=public/style.min.css",
+    "build": "npm run build:js && npm run build:css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,5 +25,12 @@
     "dotenv": "^18.0.5",
     "express": "^5.2.1",
     "multer": "^2.4.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  },
+  "allowScripts": {
+    "better-sqlite3@13.0.3": true,
+    "esbuild@0.28.2": true
   }
 }
