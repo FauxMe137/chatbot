@@ -415,3 +415,108 @@ nav a {
 nav li{
     list-style: none;
 }
+/* =================================================================
+   Mobile & Tablet Responsive Adjustments (768px and down)
+   ================================================================= */
+@media screen and (max-width: 768px) {
+    /* 1. Make the main chat container span nicely across mobile screens */
+    .chat-container {
+        margin: 10px;
+        height: calc(100vh - 20px);
+        height: calc(100dvh - 20px);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    /* 2. Compact the top header for smaller viewports */
+    .chat-header {
+        padding: 12px 15px;
+        gap: 15px;
+    }
+
+    .chat-header h1 {
+        font-size: 1.1rem;
+    }
+
+    .chat-header p {
+        display: none; /* Hide subtitle to save space */
+    }
+
+    #new-chat-btn {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+        gap: 6px;
+    }
+
+    /* 3. Stretch the Sidebar to Full Width on Mobile/Tablets */
+    .sidebar {
+        width: 100% !important; /* Forces full-width coverage */
+        height: 100vh;
+        height: 100dvh;
+        padding: 20px 15px;
+        box-sizing: border-box;
+    }
+
+    /* Ensure conversation items and buttons scale properly inside the full-width sidebar */
+    .conversation-item {
+        padding: 14px 15px;
+        font-size: 0.95rem;
+    }
+
+    /* 4. Expand chat messages area to fill available vertical space */
+    .chat-messages {
+        flex: 1;
+        height: auto;
+        padding: 10px;
+    }
+
+    .message {
+        max-width: 85%; /* Give bubbles more room on mobile */
+    }
+
+    /* 5. Optimize input area for mobile keyboards and thumbs */
+    .chat-input-area {
+        padding: 10px;
+    }
+
+    .input {
+        min-height: 50px;
+        padding-left: 50px;
+    }
+
+    #message-input {
+        min-height: 50px;
+        font-size: 14px;
+        padding: 8px 45px 8px 10px;
+    }
+
+    #attach-btn {
+        height: 35px;
+        width: 35px;
+        left: 8px;
+        bottom: 8px;
+    }
+
+    #send-btn {
+        height: 35px;
+        width: 35px;
+        right: 8px;
+        bottom: 8px;
+    }
+}
+
+/* Extra tight layout adjustments for smaller mobile screens (480px and down) */
+@media screen and (max-width: 480px) {
+    .chat-container {
+        margin: 0;
+        border: none;
+        border-radius: 0;
+        height: 100vh;
+        height: 100dvh;
+    }
+
+    #new-chat-btn span:not(.material-symbols-outlined) {
+        display: none; /* Keep only the '+' icon on tiny screens */
+    }
+}

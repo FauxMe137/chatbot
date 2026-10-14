@@ -103,7 +103,7 @@ async function callGeminiREST(contents, retries = 2) {
     }
 
     // Define model candidates (Primary -> Fallback)
-    const models = ["gemini-3.5-flash", "gemini-2.5-flash"];
+    const models = ["gemini-3.6-flash", "gemini-3.5-flash"];
 
     const payload = { contents };
 
